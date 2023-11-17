@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Category;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -11,16 +13,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(User::class)->nullable();
+            $table->foreignIdFor(Category::class);
+            $table->foreignId('staff_id')->nullable();
             $table->string('name');
+            $table->string('email');
             $table->string('phone');
-            $table->boolean('is_staff')->default('false');
-            $table->string('specialization')->nullable();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->text('text');
+            $table->string('path_file');
+            $table->string('priority');
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('contact');
     }
 };
