@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('contact', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->nullable();
             $table->foreignIdFor(Category::class);
             $table->foreignId('staff_id');
-            $table->boolean('is_important');
             $table->text('text');
             $table->string('priority');
             $table->timestamps();
