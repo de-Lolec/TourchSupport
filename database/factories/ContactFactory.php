@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+use App\Models\Category;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -17,13 +19,11 @@ class ContactFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::all()->random()->id,
-            'category_id' => Category::all()->random()->id,
-            'staff_id' => User::where('is_staff', true)->random()->id,
-            'data' =>  json_encode(['areas' => ['full', 'city']]),
-            'longitude' => fake()->randomFloat(),
-            'latitude' => fake()->randomFloat(),
-            'type' => $this->faker->word(),
+            'user_id' => User::inRandomOrder()->first()->id,
+            'category_id' => Category::inRandomOrder()->first()->id,
+            // 'staff_id' => User::where('is_staff', true)->inRandomOrder()->id,
+            'text' =>  fake()->text(50),
+            'priority' => fake()->word(),
         ];
     }
 }
