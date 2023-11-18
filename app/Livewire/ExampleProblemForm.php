@@ -8,6 +8,6 @@ class ExampleProblemForm extends Component
 {
     public function render()
     {
-        return view('livewire.portfolio.example-problem-form');
+        return view('livewire.support.example-problem-form');
     }
 }

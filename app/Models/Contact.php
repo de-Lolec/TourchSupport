@@ -18,6 +18,10 @@ class Contact extends Model
         'staff_id',
         'text',
         'priority_id'
+        'name',
+        'path_file',
+        'phone',
+        'email',
     ];
 
     public function user(): BelongsTo
