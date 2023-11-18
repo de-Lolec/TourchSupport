@@ -19,6 +19,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'phone',
+        'is_staff',
+        'specialization',
         'email',
         'password',
     ];
@@ -42,4 +45,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function specializations()
+    {
+        return $this->belongsToMany(Specialization::class, 'user_specialization', 'user_id', 'specialization_id');
+    }
 }

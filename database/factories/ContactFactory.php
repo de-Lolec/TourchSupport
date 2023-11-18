@@ -25,7 +25,7 @@ class ContactFactory extends Factory
             // 'staff_id' => User::where('is_staff', true)->inRandomOrder()->id,
             'text' =>  fake()->text(50),
             'priority' => fake()->word(),
-            'created_at' => fake()->dateTimeBetween(Carbon::now()->subDays(7), Carbon::now())
+            'created_at' => fake()->dateTimeBetween(Carbon::now()->subDays(1), Carbon::now())
         ];
     }
 }

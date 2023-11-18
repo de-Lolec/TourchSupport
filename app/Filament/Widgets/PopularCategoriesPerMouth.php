@@ -9,13 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 class PopularCategoriesPerMouth extends ChartWidget
 {
-    protected static ?string $heading = 'Количество обращений за день';
+    protected static ?string $heading = 'Самые популярные категории за месяц';
 
     protected static ?int $sort = 1;
 
+    protected static string $color = 'info';
+
     protected function getType(): string
     {
-        return 'line';
+        return 'doughnut';
     }
 
     protected function getData(): array
@@ -37,6 +39,10 @@ class PopularCategoriesPerMouth extends ChartWidget
 
         $startDate = Carbon::now()->startOfDay();
     
+        $contacts = new Contact;
+
+        $contactPerMouth = $contacts->CountContactsPerMouth(8);
+        
         for ($i = 0; $i < 12; $i++) {
             $intervals[] = $startDate->format('H:i');
             $startDate->addHours(2);
@@ -45,13 +51,21 @@ class PopularCategoriesPerMouth extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'type' => 'doughnut',
-                    'label' => 'Orders',
-                    'data' => $results,
-                    'fill' => 'start',
+                    'data' => $contactPerMouth['counts'],
+                    'backgroundColor' => [
+                        '#ADFF2F',
+                        '#32CD32',
+                        '#00FF7F',
+                        '#9400D3',
+                        '#FF69B4',
+                        '#008000',
+                        '#66CDAA',
+                        '#00FFFF',
+                    ],
+                    // 'borderColor' => '#9BD0F5',
                 ],
             ],
-            'labels' => $intervals,
+            'labels' => $contactPerMouth['categoryNames']
         ];
     }
 }

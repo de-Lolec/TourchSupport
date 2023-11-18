@@ -48,7 +48,7 @@ class OrdersChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Orders',
+                    'label' => 'Заявки',
                     'data' => $recordsPerDay,
                     'fill' => 'start',
                 ],
