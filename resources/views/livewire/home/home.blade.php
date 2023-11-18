@@ -1,12 +1,36 @@
 <div>
-    <div class="container mx-auto text-center">
-        <div class="flex flex-row max-[1150px]:flex-col">
-            <div class="w-1/2 p-2 mt-10 max-[1150px]:mx-auto max-lg:w-full">
-                Главная
+    <div class="container mx-auto text-center mt-10">
+        <div class="mx-auto">
+            <h1 class="text-4xl">
+                Проект - <span class="text-green-600">Маршрутизация обращений клиентов</span>
+            </h1>
+        </div>
+
+        <div class="mt-10 mx-auto min-[1000px]:w-1/2 text-left text-xl max-[1000px]:p-5">
+            <div>
+                <p>
+                    Мы живем в период глобальной цифровизации, когда все цифровые сервисы, а в особенности сервисы
+                    поддержки должны идти в ногу со временем и соответствовать потстоянно меняющимся потребностям пользователей.
+                </p>
             </div>
 
-            <div class="w-1/2 p-2 mt-10 max-[1150px]:hidden">
-                Главная
+            <div class="mt-5">
+                <p>
+                    <span class="font-bold">Цель этого проекта</span>  - обработка и ранжирование сообщений пользователей с применением технологий ML
+                </p>
+            </div>
+
+            <div class="mt-5">
+                <p>
+                    Мы считаем, что применяя ML можно оптимизировать следующие процессы:
+                </p>
+
+                <ol class="list-decimal mt-5 space-y-2 list-inside text-base">
+                    <li><span class="font-bold">Увеличить</span> скорость обработки сообщения </li>
+                    <li><span class="font-bold">Сократить</span> время передачи сообщения сотруднику с необходимой квалификацией, благодаря автоматическому распределению сообщений</li>
+                    <li><span class="font-bold">Уменьшить</span> нагрузку на сотрудников поддержки посредством равномерного распределения обращений</li>
+                    <li><span class="font-bold">Повысить</span> качество ответов на сообщения, благодаря первичной обработке текста AI и выделения им категорий</li>
+                </ol>
             </div>
         </div>
     </div>

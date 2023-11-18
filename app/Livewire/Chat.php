@@ -4,12 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class Portfolio extends Component
+class Chat extends Component
 {
-
-
     public function render()
     {
-        return view('livewire.portfolio.portfolio');
+        return view('livewire.chat.chat');
     }
 }
