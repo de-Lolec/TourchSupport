@@ -6,6 +6,7 @@ use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use App\Models\Contact;
 use Carbon\Carbon;
+use Filament\Actions\ViewAction;
 use Illuminate\Support\Facades\DB;
 
 class StatsOverviewWidget extends BaseWidget
@@ -16,11 +17,8 @@ class StatsOverviewWidget extends BaseWidget
     {
         return [
             Stat::make('Количество обращений за час', Contact::where('created_at', '>=', Carbon::now()->subHour())->count())
-            // ->description('32k increase')
-            // ->descriptionIcon('heroicon-m-arrow-trending-up')
             ->chart(self::getCountContactPerHourChart())
             ->color('success'),
-           
             Stat::make('Количество обработанных заявок', self::getPercentageContcat() . "%"),
             Stat::make('Среднее время ответа', '3:12'),
         ];  

@@ -13,4 +13,9 @@ class Dashboard extends BasePage
             ->pages([])
             ->path('');
     }
+
+    public function getColumns(): int | string | array
+    {
+        return 2;
+    }
 }

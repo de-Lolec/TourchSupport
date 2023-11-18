@@ -20,6 +20,7 @@ class UserSpecializationSeeder extends Seeder
         $employeesData = [
             [
                 'name' => 'Joshua Mummert',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -53,6 +54,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Allan Pearson',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -86,6 +88,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Victoria Butler',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -119,6 +122,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Harold Manalang',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -146,6 +150,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Valeria Sanders',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -166,6 +171,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Lissa Johnson',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -186,6 +192,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Loretta Humphries',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -206,6 +213,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Leo Garrett',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -226,6 +234,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Geraldine Montoya',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -246,6 +255,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Noemi Dye',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -256,6 +266,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Mary Parker',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -266,6 +277,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'James Kemp',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -276,6 +288,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Gladys Sutton',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -286,6 +299,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'David Briggs',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -296,6 +310,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Jessica Gajewski',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -306,6 +321,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Grace Dinardo',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -316,6 +332,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Charles Hulslander',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -326,6 +343,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Amy Manning',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -336,6 +354,7 @@ class UserSpecializationSeeder extends Seeder
             ],
             [
                 'name' => 'Pat Miles',
+                'is_staff' => true,
                 'specializations' => [
                     'is_competent_in_payment_issue',
                     'is_competent_in_create_account',
@@ -353,6 +372,7 @@ class UserSpecializationSeeder extends Seeder
             // Создаем пользователя с тестовым email'ом и временным паролем
             $user = new User([
                 'name' => $employeeData['name'],
+                'is_staff' => $employeeData['is_staff'],
                 'email' => strtolower(str_replace(' ', '', $employeeData['name'])) . '@example.com',
                 'password' => Hash::make($tempPassword), // Хеширование временного пароля
             ]);
