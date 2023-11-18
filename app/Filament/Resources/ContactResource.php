@@ -12,6 +12,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Actions\ViewAction;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\EditAction;
 
 class ContactResource extends Resource
 {
@@ -37,6 +40,8 @@ class ContactResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('category.name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('priority.name')
+                    ->searchable(),
                 // Tables\Columns\BadgeColumn::make('last_week_achievements_sum_points')
                 //     ->label('Points')
                 //     ->sum('lastWeekAchievements', 'points')
@@ -46,12 +51,18 @@ class ContactResource extends Resource
                 //     ->label('Achievements')
                 //     ->listWithLineBreaks()
                 //     ->bulleted(),
-            ])
+            ])->deferLoading()
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make()
+                ->form([
+                    TextInput::make('name')
+                        ->required()
+                        ->maxLength(255),
+                ])
+                ->modalWidth('2xl'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

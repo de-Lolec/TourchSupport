@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\SpecializationSeeder;
 use Database\Seeders\UserSpecializationSeeder;
+use Database\Seeders\PrioritySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
+        $this->call(PrioritySeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(SpecializationSeeder::class);
         $this->call(UserSpecializationSeeder::class);

@@ -17,7 +17,7 @@ class Contact extends Model
         'category_id',
         'staff_id',
         'text',
-        'priority'
+        'priority_id'
     ];
 
     public function user(): BelongsTo
@@ -28,6 +28,11 @@ class Contact extends Model
     public function staff(): BelongsTo
     {
         return $this->belongsTo(User::class, 'staff_id');
+    }
+
+    public function priority(): BelongsTo
+    {
+        return $this->belongsTo(Priority::class);
     }
 
     public function category(): BelongsTo
