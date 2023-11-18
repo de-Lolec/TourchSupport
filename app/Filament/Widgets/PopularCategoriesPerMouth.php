@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use App\Models\Contact;
 use Illuminate\Support\Facades\DB;
 
-class CountContactsDay extends ChartWidget
+class PopularCategoriesPerMouth extends ChartWidget
 {
     protected static ?string $heading = 'Количество обращений за день';
 
@@ -45,6 +45,7 @@ class CountContactsDay extends ChartWidget
         return [
             'datasets' => [
                 [
+                    'type' => 'doughnut',
                     'label' => 'Orders',
                     'data' => $results,
                     'fill' => 'start',
