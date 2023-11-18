@@ -16,9 +16,8 @@
 
         <div class="my-auto text-green-600 text-lg">
             <div class="min-[900px]:hidden">
-                <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" class="text-white bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">Menu <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                    </svg>
+                <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" class="text-green-600 text-xl font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">
+                    <i class="fa-solid fa-bars"></i>
                 </button>
 
                 <!-- Dropdown menu -->
@@ -43,7 +42,7 @@
                 </div>
             </div>
 
-            <div class="flex justify-center gap-12 max-[900px]:hidden">
+            <div class="flex justify-center gap-12 max-[900px]:hidden text-lg antialiased font-medium">
                 <div class="hover:text-green-700">
                     <a href="/company">Company</a>
                 </div>
