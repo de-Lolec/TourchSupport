@@ -37,7 +37,7 @@ class FormProblem extends Component
 //            'text' => $this->text,
 //        ]);
 
-        return redirect()->to('/company');
+        return redirect()->to('/chat');
     }
 
     public function render()
