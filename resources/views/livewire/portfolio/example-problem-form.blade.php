@@ -38,6 +38,6 @@
 
     <div class="flex items-center mt-5 mx-auto w-1/2">
         <input id="link-checkbox" type="checkbox" value="" class="accent-green-600 border-gray-300 rounded focus:ring-green-200 focus:ring-2" checked>
-        <label for="link-checkbox" class="ms-2 text-sm font-medium text-gray-400">Я даю согласие на обработку <a href="#" class="text-green-600 hover:underline"> персональных данных </a> </label>
+        <label for="link-checkbox" class="ms-2 text-xs font-medium text-gray-400">Я даю согласие на обработку <a href="#" class="text-green-600 hover:underline"> персональных данных </a> </label>
     </div>
 </div>
