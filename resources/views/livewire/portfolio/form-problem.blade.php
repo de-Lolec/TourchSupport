@@ -10,9 +10,9 @@
     </div>
 
     <div class="flex flex-col space-y-10 mt-10">
-        <input type="text" class="border-b-2 border-black h-10 outline-none" placeholder="ФИО">
-        <input type="text" class="border-b-2 border-black h-10 outline-none" placeholder="Телефон">
-        <input type="text" class="border-b-2 border-black h-10 outline-none" placeholder="Email">
+        <input type="text" class="border-b-2 border-green-600 h-12 outline-none" placeholder="ФИО">
+        <input type="text" class="border-b-2 border-green-600 h-12 outline-none" placeholder="Телефон">
+        <input type="text" class="border-b-2 border-green-600 h-12 outline-none" placeholder="Email">
     </div>
 
     <div class="mt-10">
@@ -23,7 +23,7 @@
     </div>
 
     <div class="mt-10">
-        <textarea class="w-full h-96 border border-black rounded">
+        <textarea class="w-full h-96 border border-black rounded p-10">
         </textarea>
     </div>
 
