@@ -16,48 +16,35 @@
 
         <div class="my-auto text-green-600 text-lg">
             <div class="min-[900px]:hidden">
-                <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" class="text-white bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">Menu <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                    </svg>
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-green-600 text-xl font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">
+                    <i class="fa-solid fa-bars"></i>
                 </button>
 
                 <!-- Dropdown menu -->
-                <div id="dropdownInformation" class="z-10 text-green-600 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
-                    <ul class="py-2 text-sm" aria-labelledby="dropdownInformationButton">
+                <div id="dropdown" class="z-10 text-green-600 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                    <ul class="py-2 text-sm" aria-labelledby="dropdownDefaultButton">
                         <li>
-                            <a href="#" class="block px-4 py-2">Services</a>
+                            <a href="/" class="block px-4 py-2" wire:navigate>О проекте</a>
                         </li>
                         <li>
-                            <a href="/portfolio" class="block px-4 py-2">Portfolio</a>
+                            <a href="/team" class="block px-4 py-2" wire:navigate>О команде</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-4 py-2">Product</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2">Fin Tech Solutions</a>
-                        </li>
-                        <li>
-                            <a href="/company" class="block px-4 py-2">Company</a>
+                            <a href="/support" class="block px-4 py-2" wire:navigate>Поддержка</a>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div class="flex justify-center gap-12 max-[900px]:hidden">
+            <div class="flex justify-center gap-12 max-[900px]:hidden text-lg antialiased font-medium">
                 <div class="hover:text-green-700">
-                    <a href="/company">Company</a>
+                    <a href="/" class="block px-4 py-2" wire:navigate>О проекте</a>
                 </div>
                 <div class="hover:text-green-700">
-                    <a href="/">Services</a>
+                    <a href="/team" class="block px-4 py-2" wire:navigate>О команде</a>
                 </div>
                 <div class="hover:text-green-700">
-                    <a href="/">Fin Tech Solutions</a>
-                </div>
-                <div class="hover:text-green-700">
-                    <a href="/">Product</a>
-                </div>
-                <div class="hover:text-green-700">
-                    <a href="/portfolio">Portfolio</a>
+                    <a href="/support" class="block px-4 py-2" wire:navigate>Поддержка</a>
                 </div>
             </div>
         </div>

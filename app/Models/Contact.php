@@ -14,8 +14,12 @@ class Contact extends Model
         'category_id',
         'staff_id',
         'text',
-        'priority'
+        'priority',
+        'name',
+        'path_file',
+        'phone',
+        'email',
     ];
 
-    
+
 }

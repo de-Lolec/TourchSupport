@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @livewireStyles
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css" rel="stylesheet" />
+
     @vite('resources/css/app.css')
     <title>{{ $title ?? 'Page Title' }}</title>
 </head>
@@ -15,6 +15,7 @@
         {{ $slot }}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
+    <script src="https://kit.fontawesome.com/bd53d87eef.js" crossorigin="anonymous"></script>
 </body>
 @livewireScripts
 </html>
