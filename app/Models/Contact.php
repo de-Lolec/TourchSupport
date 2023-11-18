@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Contact extends Model
 {
@@ -56,5 +57,18 @@ class Contact extends Model
             'categoryNames' => $categoryNames,
             'counts' => $counts,
         ];
+    }
+
+    public static function calculatePercentage()
+    {
+        $totalContacts = Contact::count();
+        $nonEmptyStaffIdContacts = Contact::whereNotNull('staff_id')->count();
+
+        if ($totalContacts > 0) {
+            $percentage = ($nonEmptyStaffIdContacts / $totalContacts) * 100;
+            return number_format($percentage, 2) . "%";
+        } else {
+            return 0;
+        }
     }
 }
