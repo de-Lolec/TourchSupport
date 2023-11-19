@@ -19,12 +19,25 @@ class FormProblem extends Component
 
     public function save() {
         $this->validate([
-            'file' => 'nullable|image|max:10000',
+            'file' => 'nullable',
             'fio' => 'required',
             'email' => 'required|email',
             'phone' => 'required|min:11|max:12',
             'text' => 'required|max:255|min:10',
             'checkbox' => 'accepted'
+        ],
+        [
+            'file.image' => 'Загружайте только изображение',
+            'fio.required' => 'Обязательно для заполнения',
+            'email.required' => 'Обязательно для заполнения',
+            'email.email' => 'Почта должна быть валидной',
+            'phone.required' => 'Обязательно для заполнения',
+            'phone.min' => 'Минимум 11 символов',
+            'phone.max' => 'Максимум 12 символов',
+            'text.required' => 'Обязательно для заполнения',
+            'text.max' => 'Максимум 255 символов',
+            'text.min' => 'Минимум 10 символов',
+            'checkbox.accepted' => 'Поставьте галочку',
         ]);
 
 
