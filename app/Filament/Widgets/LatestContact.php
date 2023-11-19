@@ -46,6 +46,7 @@ final class LatestContact extends TableWidget
                         'standard_priority' => 'success',    
                     })
                 ])
+                ->defaultSort('created_at', 'desc')
                 ->filters([
                     //
                 ])

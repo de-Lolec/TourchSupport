@@ -5,6 +5,9 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ContactResource\Pages;
 use App\Filament\Resources\ContactResource\RelationManagers;
 use App\Models\Contact;
+use App\Models\Priority;
+use App\Models\Category;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
@@ -26,6 +29,8 @@ class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
 
+    protected static ?string $navigationLabel = "Заявки";
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -38,12 +43,18 @@ class ContactResource extends Resource
                 Section::make('Options')
                     ->description('Settings for options this ticket')
                     ->schema([
-                        Select::make('priority')
-                            ->options([
-                                1 => 'high_priority',
-                                2 => 'medium_priority',
-                                3 => 'medium_priority',
-                            ]),
+                        Select::make('priority_id')
+                            ->label('Приоритет')
+                            ->options(Priority::all()->pluck('name', 'id'))
+                            ->searchable(),
+                        Select::make('category_id')
+                            ->label('Категория')
+                            ->options(Category::all()->pluck('name', 'id'))
+                            ->searchable(),
+                        Select::make('staff_id')
+                            ->label('Сотрудник')
+                            ->options(User::where('is_staff', true)->get()->pluck('name', 'id')->toArray())
+                            ->searchable(),
                         Select::make('is_close')
                             ->options([
                                 true => 'Yes',
@@ -63,6 +74,8 @@ class ContactResource extends Resource
                 Tables\Columns\TextColumn::make('text'),
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('staff.name')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('category.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('priority.name')
@@ -79,16 +92,8 @@ class ContactResource extends Resource
                 Tables\Columns\IconColumn::make('is_close')
                     ->boolean()
                     ->label('Is CLose'),
-                // Tables\Columns\BadgeColumn::make('last_week_achievements_sum_points')
-                //     ->label('Points')
-                //     ->sum('lastWeekAchievements', 'points')
-                //     ->sortable()
-                //     ->formatStateUsing(fn (string $state): string => $state.' XP'),
-                // Tables\Columns\TextColumn::make('lastWeekAchievements.title')
-                //     ->label('Achievements')
-                //     ->listWithLineBreaks()
-                //     ->bulleted(),
-            ])->defaultSort('id', 'desc')
+            ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make('created_at')
                     ->form([
@@ -109,7 +114,8 @@ class ContactResource extends Resource
                             ->required()
                             ->maxLength(255),
                     ])
-                    ->modalWidth('2xl'),
+                    ->modalWidth('2xl')
+                    ->label('Изменить'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
