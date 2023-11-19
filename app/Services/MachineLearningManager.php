@@ -6,16 +6,27 @@ use Illuminate\Support\Facades\Http;
 use App\Services\MachineLearningManager;
 use App\Models\User;
 use App\Models\Contact;
+use App\Models\Category;
+use App\Models\Priority;
+use GuzzleHttp\Client;
 
 class MachineLearningManager
 {
     public function getImportancyAndPriority(string $text, $contact): void
     {
         
-        $response = Http::withBody('tell me if my package is out for delivery')->post('http://79.174.95.30:8080/predict');
+        // $response = Http::withBody('tell me if my package is out for delivery')->post('http://79.174.95.30:8080/predict');
     
+        // $client = new Client();
+
+        // $response = $client->post('http://79.174.95.30:8080/predict', [
+        //     'headers' => [
+        //         'Content-Type' => 'application/json'
+        //     ],
+        //     'json' => 'tell me if my package is out for delivery'
+        // ]);
         
-        dd($response);
+        // dd($response->body());
         $priority = 'standard_priority';
         $category = 'create_account';
 
@@ -73,7 +84,11 @@ class MachineLearningManager
         $firstKeyWithMinValue = $keysWithMinValue[0];
 
         $contact->staff_id = $firstKeyWithMinValue;
-        $contact->priority = $priority;
+        $category_id = Category::where('name', $category)->first()->id;
+        $priority_id = Priority::where('name', $priority)->first()->id;
+
+        $contact->category_id = $category_id;
+        $contact->priority_id = $priority_id;
 
         $contact->save();
 
