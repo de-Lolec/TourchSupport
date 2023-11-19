@@ -31,9 +31,9 @@ class StatsOverviewWidget extends BaseWidget
 
         if ($totalContacts > 0) {
             $percentage = ($nonEmptyStaffIdContacts / $totalContacts) * 100;
-            return number_format($percentage, 2);
+            return round($percentage);
         } else {
-            return 0.00;
+            return 0;
         }
     }
 
