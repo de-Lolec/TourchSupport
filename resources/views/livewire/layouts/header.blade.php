@@ -16,21 +16,21 @@
 
         <div class="my-auto text-green-600 text-lg">
             <div class="md:hidden">
-                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-green-600 text-xl font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdownDivider" class="text-green-600 text-xl font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">
                     <i class="fa-solid fa-bars"></i>
                 </button>
 
                 <!-- Dropdown menu -->
-                <div id="dropdown" class="z-10 text-green-600 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                <div id="dropdownDivider" class="z-10 text-green-600 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                     <ul class="py-2 text-sm" aria-labelledby="dropdownDefaultButton">
                         <li>
-                            <a href="/" class="block px-4 py-2" wire:navigate>О проекте</a>
+                            <a href="/" class="block px-4 py-2">О проекте</a>
                         </li>
                         <li>
-                            <a href="/team" class="block px-4 py-2" wire:navigate>О команде</a>
+                            <a href="/team" class="block px-4 py-2">О команде</a>
                         </li>
                         <li>
-                            <a href="/support" class="block px-4 py-2" wire:navigate>Поддержка</a>
+                            <a href="/support" class="block px-4 py-2">Поддержка</a>
                         </li>
                     </ul>
                 </div>
