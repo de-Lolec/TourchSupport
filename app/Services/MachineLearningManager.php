@@ -46,7 +46,7 @@ class MachineLearningManager
         
         // dd($response->body());
 
-        $response = self::request();
+        // $response = self::request();
 
         $priority = 'standard_priority';
         $category = 'create_account';
