@@ -70,13 +70,18 @@ class ContactResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('text'),
+                    ->searchable()
+                    ->label('Имя'),
+                Tables\Columns\TextColumn::make('text')
+                    ->label('Текст обращения'),
                 Tables\Columns\TextColumn::make('phone')
+                    ->label('Телефон')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('staff.name')
+                    ->label('Назначено')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('category.name')
+                    ->label('Категория')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('priority.name')
                     ->icon(fn (string $state): string => match ($state) {
@@ -88,16 +93,18 @@ class ContactResource extends Resource
                         'high_priority' => 'danger',
                         'medium_priority' => 'warning',
                         'standard_priority' => 'success',
-                    }),
+                    })
+                    ->label('Приоритет'),
                 Tables\Columns\IconColumn::make('is_close')
                     ->boolean()
-                    ->label('Is CLose'),
+                    ->label('Закрыто'),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make('created_at')
                     ->form([
                         DatePicker::make('created_ticket')
+                        ->label('Дата:')
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query

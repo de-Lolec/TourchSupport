@@ -31,9 +31,12 @@ final class LatestContact extends TableWidget
             )
             ->paginated(false)
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('text'),
-                Tables\Columns\TextColumn::make('category.name'),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Имя'),
+                Tables\Columns\TextColumn::make('text')
+                    ->label('Текст обращения'),
+                Tables\Columns\TextColumn::make('category.name')
+                    ->label('Категория'),
                 Tables\Columns\TextColumn::make('priority.name')
                     ->icon(fn (string $state): string => match ($state) {        
                         'high_priority' => 'heroicon-o-clock',
@@ -45,6 +48,7 @@ final class LatestContact extends TableWidget
                         'medium_priority' => 'warning',
                         'standard_priority' => 'success',    
                     })
+                    ->label('Приоритет'),
                 ])
                 ->defaultSort('created_at', 'desc')
                 ->filters([
