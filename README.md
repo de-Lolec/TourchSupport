@@ -56,8 +56,6 @@
 #### создайте env с этами параметрами
 
 ```yaml
-<...>
-environment:
     APP_NAME=TourchSupport
     APP_ENV=local
     APP_KEY=base64:geqzouj/PfiMTS3NSuEi5+wSYwDC4LMQ1LmTutzpJ9g=
