@@ -29,6 +29,8 @@ class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
 
+    protected static ?string $navigationLabel = "Заявки";
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -90,16 +92,8 @@ class ContactResource extends Resource
                 Tables\Columns\IconColumn::make('is_close')
                     ->boolean()
                     ->label('Is CLose'),
-                // Tables\Columns\BadgeColumn::make('last_week_achievements_sum_points')
-                //     ->label('Points')
-                //     ->sum('lastWeekAchievements', 'points')
-                //     ->sortable()
-                //     ->formatStateUsing(fn (string $state): string => $state.' XP'),
-                // Tables\Columns\TextColumn::make('lastWeekAchievements.title')
-                //     ->label('Achievements')
-                //     ->listWithLineBreaks()
-                //     ->bulleted(),
-            ])->defaultSort('id', 'desc')
+            ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make('created_at')
                     ->form([
@@ -120,7 +114,8 @@ class ContactResource extends Resource
                             ->required()
                             ->maxLength(255),
                     ])
-                    ->modalWidth('2xl'),
+                    ->modalWidth('2xl')
+                    ->label('Изменить'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
