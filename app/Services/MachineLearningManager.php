@@ -11,6 +11,11 @@ class MachineLearningManager
 {
     public function getImportancyAndPriority(string $text, $contact): void
     {
+        
+        $response = Http::withBody('tell me if my package is out for delivery')->post('http://79.174.95.30:8080/predict');
+    
+        
+        dd($response);
         $priority = 'standard_priority';
         $category = 'create_account';
 
@@ -68,6 +73,7 @@ class MachineLearningManager
         $firstKeyWithMinValue = $keysWithMinValue[0];
 
         $contact->staff_id = $firstKeyWithMinValue;
+        $contact->priority = $priority;
 
         $contact->save();
 
