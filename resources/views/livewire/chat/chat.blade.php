@@ -15,7 +15,11 @@
                             <div class="flex-shrink-0 h-10 w-10 rounded-full bg-green-600"></div>
                             <div>
                                 <div class="bg-green-600 p-3 rounded-r-lg rounded-bl-lg">
-                                    <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <p class="text-sm">
+                                        <p class="font-bold">Ваша заявка создана</p>
+                                        <p>Ваш номер - {{$ticket->phone}}</p>
+                                        <p>Дата создания - {{$ticket->created_at}}</p>
+                                    </p>
                                 </div>
                                 <span class="text-xs text-gray-500 leading-none">2 min ago</span>
                             </div>
