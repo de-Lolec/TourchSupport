@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Contact;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Facades\MachineLearningManager;
 
 class FormProblem extends Component
 {
@@ -40,15 +41,15 @@ class FormProblem extends Component
             'checkbox.accepted' => 'Поставьте галочку',
         ]);
 
+        $contact = Contact::create([
+            'path_file' => $this->file ? $this->file->store('photos') : 'no-photo-available.png',
+            'name' => $this->fio,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'text' => $this->text,
+        ]);
 
-//здесь все данные которые пришли из валидации
-//        Contact::create([
-//            'path_file' => $this->file ? $this->file->store('photos') : 'no-photo-available.png',
-//            'name' => $this->fio,
-//            'email' => $this->email,
-//            'phone' => $this->phone,
-//            'text' => $this->text,
-//        ]);
+        $fields = MachineLearningManager::getImportancyAndPriority($this->text, $contact);
 
         return redirect()->to('/chat');
     }
