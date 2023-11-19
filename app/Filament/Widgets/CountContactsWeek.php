@@ -7,11 +7,11 @@ use Carbon\Carbon;
 use App\Models\Contact;
 use Illuminate\Support\Facades\DB;
 
-class OrdersChart extends ChartWidget
+class CountContactsWeek extends ChartWidget
 {
     protected static ?string $heading = 'Количество обращений за 7 дней';
 
-    protected static ?int $sort = 1;
+    protected static ?int $sort = 3;
 
     protected function getType(): string
     {
@@ -20,7 +20,20 @@ class OrdersChart extends ChartWidget
 
     protected function getData(): array
     {
+        return [
+            'datasets' => [
+                [
+                    'label' => 'Заявки',
+                    'data' => self::getCountConctactWeek(),
+                    'fill' => 'start',
+                ],
+            ],
+            'labels' => self::getDaysOfWeek(),
+        ];
+    }
 
+    protected function getCountConctactWeek(): array
+    {
         $currentDate = Carbon::now();
 
         $recordsPerDay = [];
@@ -34,6 +47,12 @@ class OrdersChart extends ChartWidget
         
             $recordsPerDay[] = $recordsCount;
         }
+
+        return $recordsPerDay;
+    }
+
+    protected function getDaysOfWeek(): array
+    {
         $daysOfWeek = [];
 
         $startDate = Carbon::now();
@@ -44,16 +63,7 @@ class OrdersChart extends ChartWidget
             $daysOfWeek[] = $startDate->format('d.m');
             $startDate->addDay();
         }
-    
-        return [
-            'datasets' => [
-                [
-                    'label' => 'Заявки',
-                    'data' => $recordsPerDay,
-                    'fill' => 'start',
-                ],
-            ],
-            'labels' => $daysOfWeek,
-        ];
+
+        return $daysOfWeek;
     }
 }

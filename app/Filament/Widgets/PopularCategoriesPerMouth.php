@@ -11,7 +11,7 @@ class PopularCategoriesPerMouth extends ChartWidget
 {
     protected static ?string $heading = 'Самые популярные категории за месяц';
 
-    protected static ?int $sort = 1;
+    protected static ?int $sort = 2;
 
     protected static string $color = 'info';
 
@@ -62,7 +62,6 @@ class PopularCategoriesPerMouth extends ChartWidget
                         '#66CDAA',
                         '#00FFFF',
                     ],
-                    // 'borderColor' => '#9BD0F5',
                 ],
             ],
             'labels' => $contactPerMouth['categoryNames']
