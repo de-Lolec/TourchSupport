@@ -56,10 +56,6 @@
                     <input id="dropzone-file" type="file" class="hidden" wire:model="file"/>
                 </label>
             </div>
-
-            <div class="mt-5">
-                @error('file') <span class="error text-red-500">{{ $message }}</span> @enderror
-            </div>
         </div>
 
         <div class="mt-10">
