@@ -6,7 +6,9 @@
     @livewireStyles
 
     @vite('resources/css/app.css')
-    <title>{{ $title ?? 'Page Title' }}</title>
+
+    <link rel="shortcut icon" href="{{ asset('centre-invest-bank.svg') }}">
+    <title>{{ 'TourchSupport' }}</title>
 </head>
 <body class="overflow-scroll scrollbar-hide">
     <livewire:header />
