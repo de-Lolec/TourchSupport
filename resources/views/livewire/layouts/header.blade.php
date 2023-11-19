@@ -15,7 +15,7 @@
         </div>
 
         <div class="my-auto text-green-600 text-lg">
-            <div class="min-[900px]:hidden">
+            <div class="md:hidden">
                 <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-green-600 text-xl font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -36,7 +36,7 @@
                 </div>
             </div>
 
-            <div class="flex justify-center gap-12 max-[900px]:hidden text-lg antialiased font-medium">
+            <div class="flex justify-center gap-12 max-md:hidden text-lg antialiased font-medium">
                 <div class="hover:text-green-700">
                     <a href="/" class="block px-4 py-2" wire:navigate>О проекте</a>
                 </div>

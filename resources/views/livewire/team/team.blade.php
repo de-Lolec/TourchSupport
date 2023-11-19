@@ -6,8 +6,8 @@
             </h1>
         </div>
 
-        <div class="grid grid-cols-3 gap-10 mt-20 max-[1050px]:grid-cols-1 max-[375px]:p-10">
-            <div class="max-[1050px]:mx-auto">
+        <div class="grid grid-cols-3 gap-10 mt-20 max-lg:grid-cols-1">
+            <div class="max-lg:mx-auto">
                 <img src="{{asset('images/matvey.jpeg')}}" class="w-[340px] h-[340px] rounded-lg" loading="lazy">
 
                 <div class="mx-auto text-left mt-2">
@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div class="max-[1050px]:mx-auto">
+            <div class="max-lg:mx-auto">
                 <img src="{{asset('images/roman.jpeg')}}" class="w-[340px] h-[340px] rounded-lg" loading="lazy">
 
                 <div class="mx-auto text-left mt-2">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="max-[1050px]:mx-auto">
+            <div class="max-lg:mx-auto">
                 <img src="{{asset('images/denis.jpeg')}}" class="w-[340px] h-[340px] rounded-lg" loading="lazy">
 
                 <div class="mx-auto text-left mt-2">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="min-[1050px]:col-span-2 max-[1050px]:mx-auto">
+            <div class="lg:col-span-2 max-lg:mx-auto">
                 <img src="{{asset('images/girl2.jpeg')}}" class="w-[340px] h-[340px] rounded-lg" loading="lazy">
 
                 <div class="mx-auto text-left mt-2">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            <div class="max-[1050px]:mx-auto">
+            <div class="max-lg:mx-auto">
                 <img src="{{asset('images/girl1.jpeg')}}" class="w-[340px] h-[340px] rounded-lg" loading="lazy">
 
                 <div class="mx-auto text-left mt-2">
