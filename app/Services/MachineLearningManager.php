@@ -12,9 +12,27 @@ use GuzzleHttp\Client;
 
 class MachineLearningManager
 {
+    public function request(string $text, $contact): array
+    {
+        // $response = Http::withBody('tell me if my package is out for delivery')->post('http://79.174.95.30:8080/predict');
+    
+        // $client = new Client();
+
+        // $response = $client->post('http://79.174.95.30:8080/predict', [
+        //     'headers' => [
+        //         'Content-Type' => 'application/json'
+        //     ],
+        //     'json' => 'tell me if my package is out for delivery'
+        // ]);
+
+        // dd($response->body());
+
+        $priority = 'standard_priority';
+        $category = 'create_account';
+    }
+
     public function getImportancyAndPriority(string $text, $contact): void
     {
-        
         // $response = Http::withBody('tell me if my package is out for delivery')->post('http://79.174.95.30:8080/predict');
     
         // $client = new Client();
@@ -27,9 +45,64 @@ class MachineLearningManager
         // ]);
         
         // dd($response->body());
+
+        $response = self::request();
+
         $priority = 'standard_priority';
         $category = 'create_account';
 
+        $competencies = self::getCategoryCompetencies();
+        
+        $requiredCompetencies = $competencies[$category];
+
+        $staffWithContactCount = self::getStaffWithContactCount($requiredCompetencies);
+        
+        $minValue = min($staffWithContactCount);
+
+        $keysWithMinValue = array_keys($staffWithContactCount, $minValue);
+
+        $firstKeyWithMinValue = $keysWithMinValue[0];
+
+        $contact->staff_id = $firstKeyWithMinValue;
+
+        $contact->category_id = Category::where('name', $category)->first()->id;
+        $contact->priority_id = Priority::where('name', $priority)->first()->id;
+
+        $contact->save();
+
+        // dd($firstKeyWithMinValue);
+    
+        // if ($responsibleStaff) {
+        //     // Возвращаем ответственного сотрудника
+        //     return $responsibleStaff;
+        // }
+        
+    }
+
+    public function getStaffWithContactCount(array $requiredCompetencies): array
+    {
+        $responsibleStaff = User::where('is_staff', true)
+        ->whereHas('specializations', function ($query) use ($requiredCompetencies) {
+            $query->whereIn('name', $requiredCompetencies);
+        })
+        ->pluck('id');
+        
+        $staffWithContactCount = User::whereIn('users.id', $responsibleStaff)
+            ->leftJoin('contacts', 'users.id', '=', 'contacts.staff_id')
+            ->where(function ($query) {
+                $query->where('contacts.is_close', false)
+                    ->orWhereNull('contacts.is_close');
+            })
+            ->groupBy('users.id')
+            ->selectRaw('users.id, COUNT(contacts.id) as count')
+            ->pluck('count', 'users.id')
+            ->toArray();
+
+        return $staffWithContactCount;
+    }
+
+    public function getCategoryCompetencies(): array
+    {
         $competencies = [
             'change_order' => ['is_competent_in_change_order'],
             'delete_account' => ['is_competent_in_delete_account'],
@@ -53,52 +126,10 @@ class MachineLearningManager
             'place_order' => ['is_competent_in_place_order'],
             'cancel_order' => ['is_competent_in_cancel_order'],
         ];
-        
 
-        $requiredCompetencies = $competencies[$category];
-    
-        $responsibleStaff = User::where('is_staff', true)
-        ->whereHas('specializations', function ($query) use ($requiredCompetencies) {
-            $query->whereIn('name', $requiredCompetencies);
-        })
-        ->pluck('id');
-        
-        $staffWithContactCount = User::whereIn('users.id', $responsibleStaff)
-            ->leftJoin('contacts', 'users.id', '=', 'contacts.staff_id')
-            ->where(function ($query) {
-                $query->where('contacts.is_close', false)
-                    ->orWhereNull('contacts.is_close');
-            })
-            ->groupBy('users.id')
-            ->selectRaw('users.id, COUNT(contacts.id) as count')
-            ->pluck('count', 'users.id')
-            ->toArray();
-        
-        // Находим самое маленькое значение в массиве
-        $minValue = min($staffWithContactCount);
-
-        // Получаем ключ(и) элемента(ов) с минимальным значением
-        $keysWithMinValue = array_keys($staffWithContactCount, $minValue);
-
-        // Если нужно только первый ключ с минимальным значением
-        $firstKeyWithMinValue = $keysWithMinValue[0];
-
-        $contact->staff_id = $firstKeyWithMinValue;
-        $category_id = Category::where('name', $category)->first()->id;
-        $priority_id = Priority::where('name', $priority)->first()->id;
-
-        $contact->category_id = $category_id;
-        $contact->priority_id = $priority_id;
-
-        $contact->save();
-
-        // dd($firstKeyWithMinValue);
-    
-        // if ($responsibleStaff) {
-        //     // Возвращаем ответственного сотрудника
-        //     return $responsibleStaff;
-        // }
-        
+        return $competencies;
     }
+
+
 
 }
