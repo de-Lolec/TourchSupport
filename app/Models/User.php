@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Specialization::class, 'user_specialization', 'user_id', 'specialization_id');
     }
+
+    public function contacts()
+    {
+        return $this->HasMany(Contact::class);
+    }
 }
