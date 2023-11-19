@@ -8,9 +8,10 @@ use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
 use App\Models\Contact;
-use Filament\Actions\ViewAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\Action;
 
 final class LatestContact extends TableWidget
 {
@@ -49,11 +50,15 @@ final class LatestContact extends TableWidget
                     //
                 ])
                 ->actions([
-                    Tables\Actions\ViewAction::make()
-                    ->slideOver()
-                    ->modalWidth('2xl')
-                    ->extraModalFooterActions([
-                    ]),
+                    ViewAction::make()
+                    ->label('Смотреть')
+                ->form([
+                        TextInput::make('name'),
+                        TextInput::make('email'),
+                        TextInput::make('phone'),
+                        TextInput::make('text'),
+                    ])
+                    ->modalWidth('2xl'),
                 ])
                 ->bulkActions([
                    
