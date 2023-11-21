@@ -64,6 +64,32 @@ services:
                 - ping
             retries: 3
             timeout: 5s
+    flask:
+        # Путь до Dockerfile
+        build: ./python
+        # Имя для создаваемого контейнера
+        container_name: backend-flask
+        # Создание переменных окружения в контейнере
+        environment:
+        # для отладки (при запуске в релиз убрать!)
+            - FLASK_ENV=development
+        ## Позволяет отслеживать процесс работы приложения в командной строке
+            - PYTHONUNBUFFERED=True
+        ##
+        # Перезапускаем сервис в случае падения
+        restart: on-failure
+        # Прокладывам путь для файлов. Все файлы, которые хранятся у вас в
+        # директории ./backend, появятся в директории контейнера /backend
+        volumes:
+            - ./python:/python
+        networks:
+            - sail
+        # Открываем порт в контейнер
+        # Порт, который будет смотреть наружу : порт который используется внутри контейнера
+        ports:
+            - "5000:5000"
+        command: sh -c 'python main.py && python mlapi.py'
+
 networks:
     sail:
         driver: bridge
