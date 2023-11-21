@@ -12,71 +12,45 @@ use GuzzleHttp\Client;
 
 class MachineLearningManager
 {
-    public function request(string $text, $contact): array
+    public function requestToFlask(string $text): array
     {
-        // $response = Http::withBody('tell me if my package is out for delivery')->post('http://79.174.95.30:8080/predict');
-    
-        // $client = new Client();
+        $responseRaw = Http::withBody('"' . $text . '"')->post('http://192.168.112.3:5000/predict');
 
-        // $response = $client->post('http://79.174.95.30:8080/predict', [
-        //     'headers' => [
-        //         'Content-Type' => 'application/json'
-        //     ],
-        //     'json' => 'tell me if my package is out for delivery'
-        // ]);
+        $resultArray = json_decode($responseRaw, true);
 
-        // dd($response->body());
-
-        $priority = 'standard_priority';
-        $category = 'create_account';
+        return $resultArray;
     }
 
     public function getImportancyAndPriority(string $text, $contact): void
     {
-        // $response = Http::withBody('tell me if my package is out for delivery')->post('http://79.174.95.30:8080/predict');
-    
-        // $client = new Client();
+        $response = self::requestToFlask($text);
 
-        // $response = $client->post('http://79.174.95.30:8080/predict', [
-        //     'headers' => [
-        //         'Content-Type' => 'application/json'
-        //     ],
-        //     'json' => 'tell me if my package is out for delivery'
-        // ]);
-        
-        // dd($response->body());
+        $priority = $response['importance'];
+        $category = $response['request'];
 
-        // $response = self::request();
+        $staffId = self::getBestStaffId($category);
 
-        $priority = 'standard_priority';
-        $category = 'create_account';
-
-        $competencies = self::getCategoryCompetencies();
-        
-        $requiredCompetencies = $competencies[$category];
-
-        $staffWithContactCount = self::getStaffWithContactCount($requiredCompetencies);
-        
-        $minValue = min($staffWithContactCount);
-
-        $keysWithMinValue = array_keys($staffWithContactCount, $minValue);
-
-        $firstKeyWithMinValue = $keysWithMinValue[0];
-
-        $contact->staff_id = $firstKeyWithMinValue;
+        $contact->staff_id = $staffId;
 
         $contact->category_id = Category::where('name', $category)->first()->id;
         $contact->priority_id = Priority::where('name', $priority)->first()->id;
 
         $contact->save();
+    }
 
-        // dd($firstKeyWithMinValue);
-    
-        // if ($responsibleStaff) {
-        //     // Возвращаем ответственного сотрудника
-        //     return $responsibleStaff;
-        // }
-        
+    public function getBestStaffId(string $category): int
+    {
+        $competencies = self::getCategoryCompetencies();
+
+        $requiredCompetencies = $competencies[$category];
+
+        $staffWithContactCount = self::getStaffWithContactCount($requiredCompetencies);
+
+        $minValue = min($staffWithContactCount);
+
+        $keysWithMinValue = array_keys($staffWithContactCount, $minValue);
+        $f = [];
+        return $keysWithMinValue[0];
     }
 
     public function getStaffWithContactCount(array $requiredCompetencies): array
@@ -86,7 +60,7 @@ class MachineLearningManager
             $query->whereIn('name', $requiredCompetencies);
         })
         ->pluck('id');
-        
+
         $staffWithContactCount = User::whereIn('users.id', $responsibleStaff)
             ->leftJoin('contacts', 'users.id', '=', 'contacts.staff_id')
             ->where(function ($query) {
@@ -129,7 +103,4 @@ class MachineLearningManager
 
         return $competencies;
     }
-
-
-
 }
