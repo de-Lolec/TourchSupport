@@ -3,80 +3,56 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
-use App\Services\MachineLearningManager;
 use App\Models\User;
 use App\Models\Contact;
 use App\Models\Category;
 use App\Models\Priority;
 use GuzzleHttp\Client;
 
+/**
+ * Сервис для получения и сохранения данных заявки
+ */
 class MachineLearningManager
 {
-    public function request(string $text, $contact): array
+    public function requestToFlask(string $text): array
     {
-        // $response = Http::withBody('tell me if my package is out for delivery')->post('http://79.174.95.30:8080/predict');
-    
-        // $client = new Client();
+        $responseRaw = Http::withBody('"' . $text . '"')->post(config('services.mlapi.api_url') . '/predict');
 
-        // $response = $client->post('http://79.174.95.30:8080/predict', [
-        //     'headers' => [
-        //         'Content-Type' => 'application/json'
-        //     ],
-        //     'json' => 'tell me if my package is out for delivery'
-        // ]);
+        $resultArray = json_decode($responseRaw, true);
 
-        // dd($response->body());
-
-        $priority = 'standard_priority';
-        $category = 'create_account';
+        return $resultArray;
     }
 
-    public function getImportancyAndPriority(string $text, $contact): void
+    public function saveImportancyAndPriority(string $text, $contact): void
     {
-        // $response = Http::withBody('tell me if my package is out for delivery')->post('http://79.174.95.30:8080/predict');
-    
-        // $client = new Client();
+        $response = self::requestToFlask($text);
 
-        // $response = $client->post('http://79.174.95.30:8080/predict', [
-        //     'headers' => [
-        //         'Content-Type' => 'application/json'
-        //     ],
-        //     'json' => 'tell me if my package is out for delivery'
-        // ]);
-        
-        // dd($response->body());
+        $priority = $response['importance'];
+        $category = $response['request'];
 
-        // $response = self::request();
+        $staffId = self::getBestStaffId($category);
 
-        $priority = 'standard_priority';
-        $category = 'create_account';
-
-        $competencies = self::getCategoryCompetencies();
-        
-        $requiredCompetencies = $competencies[$category];
-
-        $staffWithContactCount = self::getStaffWithContactCount($requiredCompetencies);
-        
-        $minValue = min($staffWithContactCount);
-
-        $keysWithMinValue = array_keys($staffWithContactCount, $minValue);
-
-        $firstKeyWithMinValue = $keysWithMinValue[0];
-
-        $contact->staff_id = $firstKeyWithMinValue;
+        $contact->staff_id = $staffId;
 
         $contact->category_id = Category::where('name', $category)->first()->id;
         $contact->priority_id = Priority::where('name', $priority)->first()->id;
 
         $contact->save();
+    }
 
-        // dd($firstKeyWithMinValue);
-    
-        // if ($responsibleStaff) {
-        //     // Возвращаем ответственного сотрудника
-        //     return $responsibleStaff;
-        // }
-        
+    public function getBestStaffId(string $category): int|null
+    {
+        $competencies = self::getCategoryCompetencies();
+
+        $requiredCompetencies = $competencies[$category];
+
+        $staffWithContactCount = self::getStaffWithContactCount($requiredCompetencies);
+
+        $minValue = min($staffWithContactCount);
+
+        $keysWithMinValue = array_keys($staffWithContactCount, $minValue);
+
+        return $keysWithMinValue[0];
     }
 
     public function getStaffWithContactCount(array $requiredCompetencies): array
@@ -86,7 +62,7 @@ class MachineLearningManager
             $query->whereIn('name', $requiredCompetencies);
         })
         ->pluck('id');
-        
+
         $staffWithContactCount = User::whereIn('users.id', $responsibleStaff)
             ->leftJoin('contacts', 'users.id', '=', 'contacts.staff_id')
             ->where(function ($query) {
@@ -100,7 +76,10 @@ class MachineLearningManager
 
         return $staffWithContactCount;
     }
-
+    /**
+     * Связь категорий с компетенциями сотрудников
+     * TODO: перенести это все в бд
+     */
     public function getCategoryCompetencies(): array
     {
         $competencies = [
@@ -129,7 +108,4 @@ class MachineLearningManager
 
         return $competencies;
     }
-
-
-
 }

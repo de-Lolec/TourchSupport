@@ -49,7 +49,7 @@ class FormProblem extends Component
             'text' => $this->text,
         ]);
 
-        $fields = MachineLearningManager::getImportancyAndPriority($this->text, $contact);
+        $fields = MachineLearningManager::saveImportancyAndPriority($this->text, $contact);
 
         return redirect()->to('/chat');
     }

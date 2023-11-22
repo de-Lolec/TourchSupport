@@ -32,7 +32,7 @@ class CountContactsWeek extends ChartWidget
         ];
     }
 
-    protected function getCountConctactWeek(): array
+    private function getCountConctactWeek(): array
     {
         $currentDate = Carbon::now();
 
@@ -51,7 +51,7 @@ class CountContactsWeek extends ChartWidget
         return $recordsPerDay;
     }
 
-    protected function getDaysOfWeek(): array
+    private function getDaysOfWeek(): array
     {
         $daysOfWeek = [];
 

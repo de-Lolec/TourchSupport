@@ -5,6 +5,7 @@
 /public/storage
 /storage/*.key
 /vendor
+/python/train_data.csv
 .env
 .env.backup
 .env.production
