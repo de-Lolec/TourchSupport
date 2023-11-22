@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
-use App\Services\MachineLearningManager;
 use App\Models\User;
 use App\Models\Contact;
 use App\Models\Category;

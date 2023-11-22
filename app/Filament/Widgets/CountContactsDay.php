@@ -20,7 +20,20 @@ class CountContactsDay extends ChartWidget
 
     protected function getData(): array
     {
+        return [
+            'datasets' => [
+                [
+                    'label' => 'Orders',
+                    'data' => self::getCountContacts(),
+                    'fill' => 'start',
+                ],
+            ],
+            'labels' => self::getIntervals(),
+        ];
+    }
 
+    private function getCountContacts(): array
+    {
         $results = [];
         $startTime = Carbon::now()->startOfDay();
 
@@ -33,6 +46,11 @@ class CountContactsDay extends ChartWidget
             $startTime = $endTime;
         }
 
+        return $results;
+    }
+
+    private function getIntervals(): array
+    {
         $intervals = [];
 
         $startDate = Carbon::now()->startOfDay();
@@ -42,15 +60,6 @@ class CountContactsDay extends ChartWidget
             $startDate->addHours(2);
         }
 
-        return [
-            'datasets' => [
-                [
-                    'label' => 'Orders',
-                    'data' => $results,
-                    'fill' => 'start',
-                ],
-            ],
-            'labels' => $intervals,
-        ];
+        return $intervals;
     }
 }

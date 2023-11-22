@@ -44,7 +44,7 @@ class CountContactStaff extends ChartWidget
         ];
     }
 
-    protected function getTopUsers(): Collection
+    private function getTopUsers(): Collection
     {
         $currentDate = Carbon::now();
 

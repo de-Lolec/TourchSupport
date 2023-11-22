@@ -24,7 +24,7 @@ class StatsOverviewWidget extends BaseWidget
         ];  
     }
 
-    protected function getPercentageContcat(): float
+    private function getPercentageContcat(): float
     {
         $totalContacts = Contact::count();
         $nonEmptyStaffIdContacts = Contact::whereNotNull('staff_id')->count();
@@ -37,7 +37,7 @@ class StatsOverviewWidget extends BaseWidget
         }
     }
 
-    protected function getCountContactPerHourChart(): array
+    private function getCountContactPerHourChart(): array
     {
         $results = [];
         $startTime = Carbon::now()->subHour();

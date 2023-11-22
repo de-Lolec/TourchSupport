@@ -22,31 +22,7 @@ class PopularCategoriesPerMouth extends ChartWidget
 
     protected function getData(): array
     {
-
-        $results = [];
-        $startTime = Carbon::now()->startOfDay();
-
-        for ($i = 0; $i < 12; $i++) { // 12 интервалов по 2 часа в день
-            $endTime = $startTime->copy()->addHours(2);
-            $count = DB::table('contacts')
-                ->whereBetween('created_at', [$startTime, $endTime])
-                ->count();
-            $results[] = $count;
-            $startTime = $endTime;
-        }
-
-        $intervals = [];
-
-        $startDate = Carbon::now()->startOfDay();
-    
-        $contacts = new Contact;
-
-        $contactPerMouth = $contacts->CountContactsPerMouth(8);
-        
-        for ($i = 0; $i < 12; $i++) {
-            $intervals[] = $startDate->format('H:i');
-            $startDate->addHours(2);
-        }
+        $contactPerMouth = self::CountContactsPerMouth(8);
 
         return [
             'datasets' => [
@@ -65,6 +41,30 @@ class PopularCategoriesPerMouth extends ChartWidget
                 ],
             ],
             'labels' => $contactPerMouth['categoryNames']
+        ];
+    }
+
+    private function CountContactsPerMouth(int $countRecords): array
+    {
+        $categoryCounts = Contact::select('categories.name as category_name', DB::raw('COUNT(*) as count'))
+            ->join('categories', 'contacts.category_id', '=', 'categories.id')
+            ->whereMonth('contacts.created_at', now()->month)
+            ->groupBy('contacts.category_id', 'categories.name')
+            ->orderByDesc('count')
+            ->take(8) 
+            ->get();
+
+        $categoryNames = [];
+        $counts = [];
+
+        foreach ($categoryCounts as $category) {
+            $categoryNames[] = $category->category_name;
+            $counts[] = $category->count;
+        }
+
+        return [
+            'categoryNames' => $categoryNames,
+            'counts' => $counts,
         ];
     }
 }
