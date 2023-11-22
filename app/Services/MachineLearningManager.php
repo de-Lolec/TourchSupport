@@ -10,18 +10,21 @@ use App\Models\Category;
 use App\Models\Priority;
 use GuzzleHttp\Client;
 
+/**
+ * Сервис для получения и сохранения данных заявки
+ */
 class MachineLearningManager
 {
     public function requestToFlask(string $text): array
     {
-        $responseRaw = Http::withBody('"' . $text . '"')->post('http://192.168.112.3:5000/predict');
+        $responseRaw = Http::withBody('"' . $text . '"')->post(config('services.mlapi.api_url') . '/predict');
 
         $resultArray = json_decode($responseRaw, true);
 
         return $resultArray;
     }
 
-    public function getImportancyAndPriority(string $text, $contact): void
+    public function saveImportancyAndPriority(string $text, $contact): void
     {
         $response = self::requestToFlask($text);
 
@@ -38,7 +41,7 @@ class MachineLearningManager
         $contact->save();
     }
 
-    public function getBestStaffId(string $category): int
+    public function getBestStaffId(string $category): int|null
     {
         $competencies = self::getCategoryCompetencies();
 
@@ -49,7 +52,7 @@ class MachineLearningManager
         $minValue = min($staffWithContactCount);
 
         $keysWithMinValue = array_keys($staffWithContactCount, $minValue);
-        $f = [];
+
         return $keysWithMinValue[0];
     }
 
@@ -74,7 +77,10 @@ class MachineLearningManager
 
         return $staffWithContactCount;
     }
-
+    /**
+     * Связь категорий с компетенциями сотрудников
+     * TODO: перенести это все в бд
+     */
     public function getCategoryCompetencies(): array
     {
         $competencies = [
